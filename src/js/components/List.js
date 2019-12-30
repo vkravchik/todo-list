@@ -56,7 +56,6 @@ class CheckboxList extends React.Component {
         return (
             <List className={useStyles.root}>
                 {this.props.todoList.map(el => {
-                    const labelId = `checkbox-list-label-${el}`;
 
                     return (
                         <ListItem key={el.id} role={undefined} dense button onChange={() => this.onToggleStatus(el)}>
