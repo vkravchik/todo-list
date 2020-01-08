@@ -1,7 +1,7 @@
 import React from "react";
-import {connect} from "react-redux";
-import {removeTodo, updateTodoStatus} from "../actions/todoActions";
-import {makeStyles} from '@material-ui/core/styles';
+import { connect } from "react-redux";
+import { getUsersAction, removeTodo, updateTodoStatus } from "../actions/todoActions";
+import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
@@ -21,6 +21,10 @@ const useStyles = makeStyles(theme => ({
 
 class CheckboxList extends React.Component {
 
+    componentDidMount() {
+        this.props.getUsersActions();
+    }
+
     createToggleObject = todo => {
         return {
             id: todo.id,
@@ -36,7 +40,6 @@ class CheckboxList extends React.Component {
     onDeleteClick = todo => {
         this.props.removeTodo(todo);
     };
-
 
     render() {
         return (
@@ -77,6 +80,7 @@ const mapDispatchToProps = dispatch => {
     return {
         updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
         removeTodo: todo => dispatch(removeTodo(todo)),
+        getUsersActions: () => dispatch(getUsersAction()),
     }
 };
 

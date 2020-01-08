@@ -1,4 +1,4 @@
-import {ADD_TODO, REMOVE_TODO, UPDATE_TODO_STATUS} from "../constants/actions_type";
+import { ADD_TODO, REMOVE_TODO, UPDATE_TODO_STATUS } from "../constants/actions_type";
 
 const initialState = [
     {
@@ -31,5 +31,6 @@ export const todoReducer = (state = initialState, action) => {
             ...state.map(el => el.id === action.payload.id ? action.payload : el)
         ]
     }
+
     return state;
 };
