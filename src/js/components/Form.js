@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from "react-redux";
-import {addTodo} from "../actions";
+import {addTodo} from "../actions/todoActions";
 import TextField from "@material-ui/core/TextField";
 
 const mapStateToProps = state => {
