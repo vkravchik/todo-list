@@ -11,19 +11,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-const mapStateToProps = state => {
-    return {
-        todoList: state.todoReducer
-    }
-};
-
-const mapDispatchToProps = dispatch => {
-    return {
-        updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
-        removeTodo: todo => dispatch(removeTodo(todo)),
-    }
-};
-
 const useStyles = makeStyles(theme => ({
     root: {
         width: '100%',
@@ -52,7 +39,6 @@ class CheckboxList extends React.Component {
 
 
     render() {
-
         return (
             <List className={useStyles.root}>
                 {this.props.todoList.map(el => {
@@ -80,6 +66,19 @@ class CheckboxList extends React.Component {
         )
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        todoList: state.todoReducer
+    }
+};
+
+const mapDispatchToProps = dispatch => {
+    return {
+        updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
+        removeTodo: todo => dispatch(removeTodo(todo)),
+    }
+};
 
 export default connect(
     mapStateToProps,
