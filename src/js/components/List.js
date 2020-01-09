@@ -12,79 +12,87 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(theme => ({
-    root: {
-        width: '100%',
-        maxWidth: 360,
-        backgroundColor: theme.palette.background.paper,
-    },
+  root: {
+    width: '100%',
+    maxWidth: 360,
+    backgroundColor: theme.palette.background.paper,
+  },
 }));
 
 class CheckboxList extends React.Component {
 
-    componentDidMount() {
-        this.props.getUsersActions();
+  createToggleObject = todo => {
+    return {
+      id: todo.id,
+      title: todo.title,
+      done: !todo.done
     }
+  };
 
-    createToggleObject = todo => {
-        return {
-            id: todo.id,
-            title: todo.title,
-            done: !todo.done
-        }
-    };
+  onToggleStatus = todo => {
+    this.props.updateTodoStatus(this.createToggleObject(todo));
+  };
 
-    onToggleStatus = todo => {
-        this.props.updateTodoStatus(this.createToggleObject(todo));
-    };
+  onClickItem = item => {
+      console.log(item);
+  };
 
-    onDeleteClick = todo => {
-        this.props.removeTodo(todo);
-    };
+  onDeleteClick = todo => {
+    this.props.removeTodo(todo);
+  };
 
-    render() {
-        return (
-            <List className={useStyles.root}>
-                {this.props.todoList.map(el => {
+  render() {
+    return (
+      <List className={useStyles.root}>
+        {this.props.list && this.props.list.map(el => {
 
-                    return (
-                        <ListItem key={el.id} role={undefined} dense button onChange={() => this.onToggleStatus(el)}>
-                            <ListItemIcon>
-                                <Checkbox
-                                    edge="start"
-                                    checked={el.done}
-                                    tabIndex={-1}
-                                    disableRipple
-                                />
-                            </ListItemIcon>
-                            <ListItemText primary={!el.done ? el.title : <s>{el.title}</s>}/>
-                            <ListItemSecondaryAction>
-                                <IconButton edge="end" aria-label="comments" key={el.id} onClick={() => this.onDeleteClick(el)}>
-                                    <DeleteIcon/>
-                                </IconButton>
-                            </ListItemSecondaryAction>
-                        </ListItem>
-                    );
-                })}
-            </List>
-        )
-    }
+          return (
+            <ListItem key={el.id} role={undefined} dense button
+                      onChange={() => this.onToggleStatus(el)}
+                      onClick={() => this.onClickItem(el)}
+            >
+              {
+                el.hasOwnProperty('done') &&
+                <ListItemIcon>
+                  <Checkbox
+                    edge="start"
+                    checked={el.done}
+                    tabIndex={-1}
+                    disableRipple
+                  />
+                </ListItemIcon>
+              }
+
+              <ListItemText primary={!el.done ? el.name : <s>{el.name}</s>}/>
+              <ListItemSecondaryAction>
+                <IconButton edge="end" aria-label="comments" key={el.id}
+                            onClick={() => this.onDeleteClick(el)}
+                >
+                  <DeleteIcon/>
+                </IconButton>
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })}
+      </List>
+    )
+  }
 }
 
-const mapStateToProps = state => {
-    return {
-        todoList: state.todoReducer
-    }
+const mapStateToProps = (state, ownProps) => {
+  return {
+    list: ownProps.list
+  }
 };
 
-const mapDispatchToProps = dispatch => {
-    return {
-        updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
-        removeTodo: todo => dispatch(removeTodo(todo)),
-        getUsersActions: () => dispatch(getUsersAction()),
-    }
+const mapDispatchToProps = (dispatch) => {
+  return {
+    updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
+    removeTodo: todo => dispatch(removeTodo(todo)),
+  }
 };
 
 export default connect(
-    mapStateToProps,
-    mapDispatchToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(CheckboxList);

@@ -3,12 +3,12 @@ import { ADD_TODO, REMOVE_TODO, UPDATE_TODO_STATUS } from "../constants/actions_
 const initialState = [
     {
         id: 1,
-        title: 'Some title',
+        name: 'Some title',
         done: false
     },
     {
         id: 2,
-        title: 'Codding',
+        name: 'Codding',
         done: true
     }
 ];

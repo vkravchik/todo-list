@@ -6,7 +6,7 @@ const initialState = [
 export const userReducer = (state = initialState, action) => {
   if (action.type === GET_USER_LIST) {
     return [
-      ...state, action.payload
+      ...action.payload
     ]
   }
 

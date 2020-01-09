@@ -13,8 +13,9 @@ export const updateTodoStatus = (payload) => (
   {type: UPDATE_TODO_STATUS, payload}
 );
 
-export const getUsersAction = () => {
-  const data = getUserList();
-  console.log(data);
-  return {type: GET_USER_LIST, data}
+export const getUsersAction = () => (dispatch) => {
+  getUserList().then(data => {
+    const res = data.data;
+    dispatch({type: GET_USER_LIST, payload: res})
+  });
 };

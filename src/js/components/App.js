@@ -1,14 +1,27 @@
 import React from "react";
 import CheckboxList from "./List";
 import Form from "./Form";
+import { connect } from "react-redux";
 
-const App = () => {
+class App extends React.Component {
+  render() {
     return (
-        <>
-            <CheckboxList />
-            <Form />
-        </>
-    );
+          <>
+              <CheckboxList list={this.props.todoList}/>
+              <Form />
+          </>
+      );
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    todoList: state.todoReducer,
+  }
 };
 
-export default App;
+export default connect(
+  mapStateToProps,
+  null
+)(App);
+
