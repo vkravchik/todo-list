@@ -1,22 +1,20 @@
-import React from "react";
+import React, { useEffect } from "react";
 import CheckboxList from "./List";
 import { connect } from "react-redux";
 import { getUsersAction } from "../actions/todoActions";
 
-class User extends React.Component {
+const User = ({userList, pathname, getUsersActions}) => {
 
-  componentDidMount() {
-    this.props.getUsersActions();
-  }
+  useEffect(() => {
+    // getUsersActions();
+  });
 
-  render() {
-    return (
-      <>
-        <CheckboxList list={this.props.userList}/>
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <CheckboxList list={userList}/>
+    </>
+  );
+};
 
 const mapStateToProps = (state, ownProps) => {
   return {
