@@ -12,9 +12,3 @@ export const removeTodo = (payload) => (
 export const updateTodoStatus = (payload) => (
   {type: UPDATE_TODO_STATUS, payload}
 );
-
-export const getUsersAction = () => (dispatch) => {
-  getUserList().then(data => {
-    dispatch({type: GET_USER_LIST, payload: data.data})
-  });
-};

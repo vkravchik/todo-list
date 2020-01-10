@@ -10,6 +10,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Checkbox from '@material-ui/core/Checkbox';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
+import { removeUserAction } from "../actions/userActions";
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -29,16 +30,20 @@ class CheckboxList extends React.Component {
     }
   };
 
-  onToggleStatus = todo => {
-    this.props.updateTodoStatus(this.createToggleObject(todo));
+  onToggleStatus = item => {
+    this.props.updateTodoStatus(this.createToggleObject(item));
   };
 
   onClickItem = item => {
       console.log(item);
   };
 
-  onDeleteClick = todo => {
-    this.props.removeTodo(todo);
+  onDeleteClick = item => {
+    if (this.props.path === '/user') {
+      this.props.removeUserAction(item);
+    } else {
+      this.props.removeTodo(item);
+    }
   };
 
   render() {
@@ -87,8 +92,9 @@ const mapStateToProps = (state, ownProps) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    updateTodoStatus: todo => dispatch(updateTodoStatus(todo)),
-    removeTodo: todo => dispatch(removeTodo(todo)),
+    updateTodoStatus: item => dispatch(updateTodoStatus(item)),
+    removeTodo: item => dispatch(removeTodo(item)),
+    removeUserAction: item => dispatch(removeUserAction(item)),
   }
 };
 
